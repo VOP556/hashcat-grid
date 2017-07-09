@@ -407,7 +407,7 @@ class Generator():
                 ' --debug-mode ', str(hashcat_instance.rule_debug),
                 ' -r rules --potfile-path potfile --debug-file=debug hashes dictionary '])
             
-            options = ':'.join([options1, options2])
+            options = ':'.join([options2, options1])
             #for option in hashcat_instance.options.split():
             #    options += str(" --"+option+" ")
             #self.logDebug("options: [%s]",options)
