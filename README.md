@@ -57,6 +57,10 @@ and your potfile where your recoverd hashes will be written to:
 
     ./results/
 
+enter the apache container by typing
+
+    docker exec -it hashcatgrid_apach_1 bash
+
 To start a hashcat job you have to follow this syntax:
 
     bin/hashcat.py -a 1 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile    
