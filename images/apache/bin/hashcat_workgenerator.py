@@ -286,6 +286,24 @@ class Generator():
         stdout_value = proc.communicate()[0]
         self.logNormal("Work created:  [%s]\n", wu_name)
 
+    def make_unique(self,inputfile):
+        '''
+        ensures that inputfile is present and content is unique
+        '''
+        my_set=set()
+        try:
+            with open(inputfile) as file:
+               for line in file:
+                   my_set.add(line)
+        except IOError:
+               pass
+        with open(inputfile, "w") as file:
+               pass
+        with open(inputfile, "a") as file:
+            for line in my_set:
+                file.write(line)
+        return open(inputfile)
+
     def generate_work(self, words_rules, hostid):
         '''
         creates work for the number of words and rules given
@@ -335,7 +353,9 @@ class Generator():
             #get the words
             self.logNormal("Writing new dictionary... \n")
             if (start_wordlist_index+1+words_rules[0]) >self.__wordlist_count:
+                words_rules = list(words_rules)
                 words_rules[0] = self.__wordlist_count - (start_wordlist_index+1)
+                words_rules = tuple(words_rules)
             os.system('tail -n+'+str(start_wordlist_index+1)+ " "+self.__dictionary+' | head -n'+ str(words_rules[0])+' | sort -u >'+ str(' /root/project/'+work['dictionary_file'])+' 2>/dev/null')
             #tail -n+$START $DICT | head -n$LINES | sort -u > "./work/$WORDLIST"
             '''
