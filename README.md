@@ -59,7 +59,7 @@ and your potfile where your recoverd hashes will be written to:
 
 To start a hashcat job you have to follow this syntax:
 
-    bin/hashcat.py -a 1 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile    
+    bin/hashcat.py -a 0 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile    
 
 It is possible to start more than one hashcat job but they are not balanced or prioritized
 

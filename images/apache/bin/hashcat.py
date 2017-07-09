@@ -6,7 +6,7 @@ from hashcat_workgenerator import Generator
 from Boinc import *
 '''
 example to start a hashcat round: 
-bin/hashcat.py -a 1 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile
+bin/hashcat.py -a 0 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile
 '''
 class NewHashcat():
     def __init__(self):
