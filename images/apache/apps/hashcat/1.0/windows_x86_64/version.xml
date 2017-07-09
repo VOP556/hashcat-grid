@@ -1,0 +1,19 @@
+<version>
+     <file>
+        <physical_name>wrapper_26016_windows_x86_64.exe</physical_name>
+        <main_program/>
+	<copy_file/>
+     </file>
+     <file>
+        <physical_name>7z.exe</physical_name>
+	<copy_file/>
+     </file>
+     <file>
+        <physical_name>hashcat.7z</physical_name>
+	<copy_file/>
+     </file>
+     <file>
+        <physical_name>hashcat_job_1.0_windows_x86_64.xml</physical_name>
+        <logical_name>job.xml</logical_name>
+     </file>
+</version>

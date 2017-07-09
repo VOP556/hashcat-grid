@@ -1,0 +1,16 @@
+  <job_desc>
+      <task>
+          <application>7z.exe</application>
+          <command_line>x -y hashcat.7z</command_line>
+          <stdin_filename>stdin.txt</stdin_filename>
+          <stdout_filename>stdout.txt</stdout_filename>
+          <stderr_filename>stderr.txt</stderr_filename>
+      </task>
+      <task>
+          <application>.\start.bat</application>
+          <weight>100</weight>
+          <stdin_filename>stdin.txt</stdin_filename>
+          <stdout_filename>stdout.txt</stdout_filename>
+          <stderr_filename>stderr.txt</stderr_filename>
+      </task>
+  </job_desc>
