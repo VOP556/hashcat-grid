@@ -24,7 +24,7 @@ Things you'll need:
 
 Clone this project
 
-    git clone https://github.com/VOP556/boinc-server-hashcat
+    git clone https://github.com/VOP556/hashcat-grid.git
 
 go into the directory and start the docker containers by typing:
 
