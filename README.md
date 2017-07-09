@@ -28,7 +28,7 @@ Clone this project
 
 go into the directory and start the docker containers by typing:
 
-    cd boinc-server-hashcat
+    cd hashcat-grid
     docker-compose --build -d
 
 Now your server is running.
