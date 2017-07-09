@@ -24,11 +24,11 @@ Things you'll need:
 
 Clone this project
 
-    git clone https://github.com/VOP556/hashcat-grid
+    git clone https://github.com/VOP556/hashcat-grid.git
 
 go into the directory and start the docker containers by typing:
 
-    cd boinc-server-hashcat
+    cd hashcat-grid
     docker-compose --build -d
 
 Now your server is running.
@@ -56,6 +56,10 @@ put your hashes-file, your dictionary and your rules to:
 and your potfile where your recoverd hashes will be written to:
 
     ./results/
+
+Enter the apache container by typing:
+
+    docker exec -it hashcatgrid_apache_1 bash
 
 To start a hashcat job you have to follow this syntax:
 
