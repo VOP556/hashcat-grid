@@ -40,7 +40,7 @@ class hashcat_assimilator(assimilator.Assimilator):
         #get the outputfiles
         output_files_dict = self.get_multiple_file_paths(canonical_result)
         potfile = file(output_files_dict['potfile'])
-        benchmark = subprocess.check_output("head -n58 "+output_files_dict['stdout.txt'] + " | grep Speed" , shell=True)
+        benchmark = subprocess.check_output("tail -n60 "+output_files_dict['stdout.txt'] + " | grep Speed" , shell=True)
         speed = 0
         #get the speed of benchmarked client
         speed = benchmark.split(":")[-1].split()[0]
