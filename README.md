@@ -64,6 +64,8 @@ Enter the apache container by typing:
 To start a hashcat job you have to follow this syntax:
 
     bin/hashcat.py -a 0 -m 0 --rules work/rules --dictionary work/dictionary --hashes work/hashes --potfile-path results/potfile    
+* -a : attack-mode for hashcat explained like in  <code> hashcat --help </code>
+* -m : hash-mode for hashcat exploined like in <code> hashcat --help </code>
 
 It is possible to start more than one hashcat job but they are not balanced or prioritized
 

@@ -319,6 +319,16 @@ class Generator():
             'hashes_file': "work/"+wu_name+"_hashes",
             'options_file': "work/"+wu_name+"_options"
         }
+
+        hashcat_instance = database.Hashcats[self.__hashcat_id]
+        #start_rules_index = hashcat_instance.global_rules_index
+        start_wordlist_index = hashcat_instance.global_wordlist_index
+        #check if dictionary exhausted and switch to bruteforce-mode
+        if start_wordlist_index >= self.__wordlist_count:
+            self.logNormal("Wordlist exhaustest, switching to bruteforce mode\n")
+            self.generate_bruteforce_work(words_rules, hostid)
+            return
+
         #create the files
         for key in work:
             with open(work[key], "w") as file:
@@ -337,16 +347,7 @@ class Generator():
             #time.sleep(self.sleep_interval)
 
             self.create_work(work, hostid, wu_name)
-        else:
-            hashcat_instance = database.Hashcats[self.__hashcat_id]
-            start_rules_index = hashcat_instance.global_rules_index
-            start_wordlist_index = hashcat_instance.global_wordlist_index
-            #check if dictionary exhausted and switch to bruteforce-mode
-            if start_wordlist_index >= self.__wordlist_count:
-                self.logNormal("Wordlist exhaustest, switching to bruteforce mode\n")
-                self.generate_bruteforce_work(words_rules, hostid)
-                return
-            
+        else:            
             end_wordlist_index = start_wordlist_index + words_rules[0]
             end_rules_index = start_rules_index + words_rules[1]
 
@@ -357,21 +358,8 @@ class Generator():
                 words_rules[0] = self.__wordlist_count - (start_wordlist_index+1)
                 words_rules = tuple(words_rules)
             os.system('tail -n+'+str(start_wordlist_index+1)+ " "+self.__dictionary+' | head -n'+ str(words_rules[0])+' | sort -u >'+ str(' /root/project/'+work['dictionary_file'])+' 2>/dev/null')
-            #tail -n+$START $DICT | head -n$LINES | sort -u > "./work/$WORDLIST"
-            '''
-
-            self.logNormal("Writing new dictionary ...\n")
-            with open(self.__dictionary) as dictionary:
-                with open(work['dictionary_file'], 'a') as new_dictionary:
-                    for line, i in enumerate(dictionary):
-                        if (i > int(start_wordlist_index)) and (i <= int(end_wordlist_index)):
-                            new_dictionary.write(line)
-                        elif i > int(end_wordlist_index):
-                            break
-            '''
             #get the rules
             self.logNormal("Writing new rules-file ...\n")
-            #os.system('cp /root/project/'+self.__rules+' /root/project/'+work['rules_file'])
             with open(self.__rules) as rules:
                 with open(work['rules_file'], 'a') as new_rules:
                     for i, line in enumerate(rules):
@@ -391,9 +379,6 @@ class Generator():
                     for i, line in enumerate(potfile):
                         new_potfile.write(line)
             #update index in db
-
-            #hashcat_instance.global_rules_index = end_rules_index
-            
             hashcat_instance.global_wordlist_index = end_wordlist_index
             hashcat_instance.commit()
 
@@ -408,18 +393,12 @@ class Generator():
                 ' -r rules --potfile-path potfile --debug-file=debug hashes dictionary '])
             
             options = ':'.join([options2, options1])
-            #for option in hashcat_instance.options.split():
-            #    options += str(" --"+option+" ")
-            #self.logDebug("options: [%s]",options)
             with open(work['options_file'], 'a') as options_file:
                 options_file.write((options))
             #create the work
             for key in work:
                 self.stage_file(work[key])
-            #time.sleep(self.sleep_interval)
             self.create_work(work, hostid, wu_name)
-
-
 
 
     def generate_bruteforce_work(self, words_rules, hostid):
