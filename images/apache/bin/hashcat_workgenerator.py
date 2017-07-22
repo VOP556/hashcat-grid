@@ -5,7 +5,7 @@ import assimilator
 from Boinc import *
 class Generator():
     CWD = "/root/project/"
-    WORK = 60 #seconds to calculate words for work
+    WORK = 30 #seconds to calculate words for work
     POTFILE = 'results/potfile'
     DICTIONARY = 'work/dictionary'
     HASHES = 'work/hashes'
@@ -349,7 +349,7 @@ class Generator():
             self.create_work(work, hostid, wu_name)
         else:            
             end_wordlist_index = start_wordlist_index + words_rules[0]
-            end_rules_index = start_rules_index + words_rules[1]
+            #end_rules_index = start_rules_index + words_rules[1]
 
             #get the words
             self.logNormal("Writing new dictionary... \n")
@@ -383,8 +383,8 @@ class Generator():
             hashcat_instance.commit()
 
             #get the options
-            options1 = ''.join(['-m ', str(hashcat_instance.hash_mode),
-                ' -b '])
+            #options1 = ''.join(['-m ', str(hashcat_instance.hash_mode),
+            #    ' -b '])
 
             options2 = ''.join(['-a ', str(hashcat_instance.attack_mode),
                 ' -m ', str(hashcat_instance.hash_mode),
@@ -392,9 +392,9 @@ class Generator():
                 ' --debug-mode ', str(hashcat_instance.rule_debug),
                 ' -r rules --potfile-path potfile --debug-file=debug hashes dictionary '])
             
-            options = ':'.join([options2, options1])
+            #options = ':'.join([options2, options1])
             with open(work['options_file'], 'a') as options_file:
-                options_file.write((options))
+                options_file.write((options2))
             #create the work
             for key in work:
                 self.stage_file(work[key])
